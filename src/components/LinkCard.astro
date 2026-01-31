@@ -2,7 +2,8 @@
 import { ExternalLinkIcon } from "../icons";
 import Rendericon from "./Rendericon.astro";
 import { cn } from "../utils/classNames";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+import { images } from '../assets/img';
 
 interface Props {
   label: string;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const { label, url, description, icon, cover }: Props = Astro.props;
+const coverImage = cover ? images[cover] : undefined;
 
 const colorsMap: Record<string, string> = {
   instagram: "from-pink-500 via-red-500 to-yellow-500", // clásico degradado IG
@@ -26,6 +28,7 @@ const colorsMap: Record<string, string> = {
   email: "from-indigo-500 to-indigo-700", // azul clásico para mail
   website: "from-gray-500 to-gray-700", // gris neutro
   tiktok: "from-cyan-500 to-pink-500", // cian/rosa TikTok
+  cafecito: "from-slate-400 to-blue-400", // azul grisáceo cafecito
 };
 ---
 
@@ -37,7 +40,7 @@ const colorsMap: Record<string, string> = {
     {/* Icon or Image */}
     <div
       class={cn(
-        "relative size-16 rounded-xl bg-gradient-to-r p-0.5 group-hover:scale-110 transition-transform duration-200",
+        "relative size-16 rounded-xl bg-linear-to-r p-0.5 group-hover:scale-110 transition-transform duration-200",
         colorsMap[icon]
       )}
     >
@@ -45,15 +48,16 @@ const colorsMap: Record<string, string> = {
         class="w-full h-full bg-foreground/10 backdrop-blur-xl rounded-xl flex items-center justify-center"
       >
         {
-          cover ? (
-            <Image
-              src={cover}
+          coverImage ? (
+            <Picture
+              src={coverImage}
               alt={label}
+              formats={['avif', 'webp']}
+              widths={[128, 256, 384]}
+              sizes="(min-resolution: 3dppx) 192px, (min-resolution: 2dppx) 128px, 64px"
+              quality={85}
               class="w-full h-full object-cover rounded-xl"
               loading="lazy"
-              decoding="async"
-              width={64}
-              height={64}
             />
           ) : (
             <Rendericon name={icon} size={30} class="text-white" />

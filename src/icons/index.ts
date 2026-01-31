@@ -1,3 +1,4 @@
+export { default as CafecitoIcon } from "./CafecitoIcon.astro";
 export { default as MusicIcon } from "./MusicIcon.astro";
 export { default as EmailIcon } from "./EmailIcon.astro";
 export { default as GlobeIcon } from "./GlobeIcon.astro";

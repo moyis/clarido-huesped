@@ -209,3 +209,19 @@
   --blob2: 10 90% 60%;
   --blob3: 40 90% 60%;
 }
+
+/* ——— COPPER (Clárido Huésped) ——— */
+:root[data-theme="copper"] {
+  --background: 20 18% 8%;           /* dark brown/black from album */
+  --foreground: 30 15% 92%;          /* warm off-white text */
+  --primary: 25 45% 51%;             /* copper/terracotta accent */
+  --primary-foreground: 30 20% 95%; /* light text on primary */
+  --muted: 20 15% 14%;               /* dark brown muted */
+  --muted-foreground: 25 12% 55%;   /* muted copper text */
+  --gradient-from: 20 18% 8%;        /* matches background */
+  --gradient-via: 25 30% 18%;        /* subtle copper glow */
+  --gradient-to: 20 18% 8%;
+  --blob1: 25 50% 45%;               /* copper blob */
+  --blob2: 15 40% 35%;               /* darker brown blob */
+  --blob3: 35 45% 40%;               /* golden-brown blob */
+}

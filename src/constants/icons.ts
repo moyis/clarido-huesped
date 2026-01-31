@@ -10,6 +10,7 @@ import {
   EmailIcon,
   GlobeIcon,
   TiktokIcon,
+  CafecitoIcon,
 } from "../icons";
 
 export const ICON_MAP: Record<string, any> = {
@@ -24,4 +25,5 @@ export const ICON_MAP: Record<string, any> = {
   email: EmailIcon,
   website: GlobeIcon,
   tiktok: TiktokIcon,
+  cafecito: CafecitoIcon,
 };

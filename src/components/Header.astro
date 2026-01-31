@@ -2,7 +2,8 @@
 import Section from "../layouts/Section.astro";
 import { MusicIcon, ShareIcon } from "../icons";
 import SocialIcons from "./SocialIcons.astro";
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
+import { images } from '../assets/img';
 
 interface Props {
   name: string;
@@ -13,19 +14,24 @@ interface Props {
 }
 
 const { name, bio, description, links = {}, picture }: Props = Astro.props;
+const pictureImage = images[picture];
 ---
 
 <Section>
   <header class="py-2">
     <div class="relative mb-6">
-      <Image
-        src={picture}
-        alt={name}
-        loading="eager"
-        class="w-32 h-32 rounded-full mx-auto border-2 border-white/20 shadow-2xl object-cover backdrop-blur-xl bg-white/5"
-        height={128}
-        width={128}
-      />
+      {pictureImage && (
+        <Picture
+          src={pictureImage}
+          alt={name}
+          formats={['avif', 'webp']}
+          widths={[256, 512, 768]}
+          sizes="(min-resolution: 3dppx) 384px, (min-resolution: 2dppx) 256px, 128px"
+          quality={90}
+          loading="eager"
+          class="w-32 h-32 rounded-full mx-auto border-2 border-white/20 shadow-2xl object-cover backdrop-blur-xl bg-white/5"
+        />
+      )}
       <div
         class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-xl rounded-full p-2 border border-white/20"
       >
