@@ -1,7 +1,8 @@
 ---
 import SocialIcons from "./SocialIcons.astro";
-import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
 import { YouTube } from "@astro-community/astro-embed-youtube";
+import { images } from '../assets/img';
 
 interface Props {
   title: string;
@@ -18,6 +19,8 @@ const {
   album,
   latest,
 }: Props = Astro.props;
+
+const coverImage = cover ? images[cover] : undefined;
 
 /** Extrae un ID válido de YouTube (watch, youtu.be, shorts, embed, music) y limpia params extra */
 function getYouTubeId(url?: string | null): string | null {
@@ -83,16 +86,17 @@ const showVideo = Boolean(latest && youTubeId);
       /* Cover por defecto */
       <div class="flex items-start gap-4 p-4">
         <div class="relative group">
-          {cover && (
+          {coverImage && (
             <>
-              <Image
-                src={cover}
+              <Picture
+                src={coverImage}
                 alt={title}
+                formats={['avif', 'webp']}
+                widths={[128, 256, 384]}
+                sizes="(min-resolution: 3dppx) 192px, (min-resolution: 2dppx) 128px, 64px"
+                quality={85}
                 class="size-16 rounded-xl object-cover shadow-lg"
-                loading="lazy"
-                decoding="async"
-                width={64}
-                height={64}
+                loading={latest ? "eager" : "lazy"}
               />
               <div class="absolute inset-0 bg-black/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
             </>
