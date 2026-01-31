@@ -1,0 +1,11 @@
+# robots.txt for Clárido Huésped
+# https://www.claridohuesped.com.ar
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.claridohuesped.com.ar/sitemap-index.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1

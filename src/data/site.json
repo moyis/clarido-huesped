@@ -1,9 +1,13 @@
 {
   "config": {
     "title": "Clárido Huésped",
-    "description": "Proyecto colaborativo marplatense",
+    "description": "Clárido Huésped es un proyecto colaborativo marplatense de música. Escuchá nuestros lanzamientos, próximos shows y conectá con nosotros.",
+    "siteUrl": "https://www.claridohuesped.com.ar",
+    "keywords": "Clárido Huésped, música argentina, Mar del Plata, banda marplatense, rock argentino, música indie, El Viaje",
+    "ogImage": "profile.webp",
     "theme": "copper",
     "font": "modern",
+    "themeColor": "#b87333",
     "copyright": "© 2026 Clárido Huésped"
   },
   "artist": {

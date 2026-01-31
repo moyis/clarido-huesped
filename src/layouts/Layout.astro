@@ -2,15 +2,35 @@
 import "flag-icons/css/flag-icons.min.css";
 import "../styles/global.css";
 import type { Theme, FontPreset } from "../types/theme";
+import { profile } from "../assets/img/index";
 
 interface Props {
   title: string;
   description: string;
   theme?: Theme;
   font?: FontPreset;
+  siteUrl?: string;
+  keywords?: string;
+  ogImage?: string;
+  themeColor?: string;
+  artistName?: string;
+  artistBio?: string;
+  socials?: Record<string, string>;
 }
 
-const { theme, title, description, font = "modern" }: Props = Astro.props;
+const {
+  theme,
+  title,
+  description,
+  font = "modern",
+  siteUrl = "",
+  keywords = "",
+  ogImage,
+  themeColor = "#b87333",
+  artistName = "",
+  artistBio = "",
+  socials = {},
+}: Props = Astro.props;
 
 // Mapa: preset -> URL de Google Fonts (solo la necesaria)
 const FONT_LINKS: Record<FontPreset, string> = {
@@ -21,21 +41,89 @@ const FONT_LINKS: Record<FontPreset, string> = {
   grotesk:
     "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap",
 };
+
+// Canonical URL
+const canonicalUrl = siteUrl || Astro.url.href;
+
+// OG Image URL - use profile image as default
+const ogImageUrl = siteUrl ? `${siteUrl}${profile.src}` : profile.src;
+
+// Structured Data (JSON-LD) for MusicGroup
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": artistName || title,
+  "description": artistBio || description,
+  "url": canonicalUrl,
+  "image": ogImageUrl,
+  "genre": ["Rock", "Indie", "Música Argentina"],
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Mar del Plata, Argentina"
+  },
+  ...(socials.spotify && { "sameAs": Object.values(socials).filter(Boolean) })
+};
 ---
 
 <!doctype html>
 <html lang="es-AR" data-theme={theme} data-font={font}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
-    <!-- Carga condicional de la fuente elegida -->
+    <link rel="apple-touch-icon" href="/favicon.jpg" />
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href={FONT_LINKS[font]} rel="stylesheet" />
-    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="author" content={artistName || title} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={`${artistName || title} - Foto de perfil`} />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:locale" content="es_AR" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={`${artistName || title} - Foto de perfil`} />
+    
+    <!-- Theme and Mobile -->
+    <meta name="theme-color" content={themeColor} />
+    <meta name="msapplication-TileColor" content={themeColor} />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content={title} />
+    
+    <!-- Web Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <div

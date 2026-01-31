@@ -1,0 +1,20 @@
+{
+  "name": "Clárido Huésped",
+  "short_name": "Clárido",
+  "description": "Proyecto colaborativo marplatense de música",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#b87333",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["music", "entertainment"],
+  "lang": "es-AR"
+}

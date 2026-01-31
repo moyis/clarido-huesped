@@ -45,6 +45,13 @@ const showLinks = allLinks.length > 0;
   title={site.config.title}
   description={site.config.description}
   font={font}
+  siteUrl={site.config.siteUrl}
+  keywords={site.config.keywords}
+  ogImage={site.config.ogImage}
+  themeColor={site.config.themeColor}
+  artistName={artist.name}
+  artistBio={artist.bio}
+  socials={site.socials}
 >
   <div class="relative z-10 max-w-xl mx-auto px-2 py-8 space-y-6">
     <Header {...artist} links={site?.socials ?? {}} />
